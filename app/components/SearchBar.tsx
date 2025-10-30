@@ -2,7 +2,7 @@
 export default function SearchBar() {
     return (
         <div className="flex justify-center w-full px-4 py-5 bg-transparent">
-            <div className="relative w-full max-w-3xl"> {/* make it long */}
+            <div className="relative w-full max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-2xl">
                 <input
                     type="text"
                     placeholder="Search blog . . ."
@@ -14,5 +14,6 @@ export default function SearchBar() {
                 />
             </div>
         </div>
+
     )
 }
