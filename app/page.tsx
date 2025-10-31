@@ -1,5 +1,26 @@
 import NavigationHeader from "@/app/components/NavigationHeader";
+import BlogCard from "@/app/components/BlogCard";
 export default function Home() {
+    const blogs = [
+        {
+            title: "The Crucial Role of Project Management in Construction Success.",
+            desc: "This blog delves into the critical role project management plays in the construction industry.",
+            date: "4 Mar",
+            image: "/java-threads2.jpg",
+        },
+        {
+            title: "Materials for Your Next Construction Project",
+            desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
+            date: "5 Mar",
+            image: "/Dystonia-4.jpg",
+        },
+        {
+            title: "What to Expect During a Construction Project",
+            desc: "Embarking on a construction project can be a complex and multifaceted process.",
+            date: "6 Mar",
+            image: "/logging-api.jpg",
+        },
+    ];
   return (
       <div className="w-full bg-white/70 bg-opacity-40 font-display">
           <NavigationHeader/>
@@ -15,7 +36,21 @@ export default function Home() {
                   Explore insights, reflections, and stories blending technology, creativity, and life.
                   Each post is written with care to inspire curiosity and spark thoughtful discussions.
               </p>
+
+              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+
+                  {blogs.map((blog, index) => (
+                      <BlogCard
+                          key={index}
+                          title={blog.title}
+                          desc={blog.desc}
+                          date={blog.date}
+                          image={blog.image}
+                      />
+                  ))}
+              </div>
           </div>
+
       </div>
 
 
