@@ -2,8 +2,8 @@
 
 import NavigationHeader from "@/app/components/NavigationHeader";
 import BlogCard from "@/app/components/BlogCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { motion, AnimatePresence } from "framer-motion";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -28,22 +28,22 @@ export default function Home() {
         {
             title: "Materials for Your Next Construction Project",
             desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
-            image: "/Dystonia-4.jpg",
+            image: "/java-threads.webp",
         },
         {
             title: "What to Expect During a Construction Project",
             desc: "Embarking on a construction project can be a complex and multifaceted process.",
-            image: "/logging-api.jpg",
+            image: "/inject.jpg",
         },
         {
             title: "Materials for Your Next Construction Project",
             desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
-            image: "/Dystonia-4.jpg",
+            image: "/NestedClasses.jpg",
         },
         {
             title: "What to Expect During a Construction Project",
             desc: "Embarking on a construction project can be a complex and multifaceted process.",
-            image: "/logging-api.jpg",
+            image: "/java-threads2.jpg",
         },
     ];
     const [currentPage, setCurrentPage] = useState(1);
@@ -102,16 +102,36 @@ export default function Home() {
                       </button>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {currentBlogs.map((blog, index) => (
-                          <BlogCard
-                              key={index}
-                              title={blog.title}
-                              desc={blog.desc}
-                              image={blog.image}
-                          />
-                      ))}
-                  </div>
+                  <AnimatePresence mode="wait">
+                      <motion.div
+                          key={currentPage}
+                          initial={{ opacity: 0, x: 25, scale: 0.98 }}
+                          animate={{ opacity: 1, x: 0, scale: 1 }}
+                          exit={{ opacity: 0, x: -25, scale: 0.98 }}
+                          transition={{ duration: 0.6, ease: "easeInOut" }}
+                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                      >
+                          {currentBlogs.map((blog, index) => (
+                              <motion.div
+                                  key={`${currentPage}-${index}`}
+                                  initial={{ opacity: 0, y: 15 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{
+                                      duration: 0.5,
+                                      ease: "easeOut",
+                                      delay: index * 0.1,
+                                  }}
+                              >
+                                  <BlogCard
+                                      title={blog.title}
+                                      desc={blog.desc}
+                                      image={blog.image}
+                                  />
+                              </motion.div>
+                          ))}
+                      </motion.div>
+                  </AnimatePresence>
+
               </div>
 
 
