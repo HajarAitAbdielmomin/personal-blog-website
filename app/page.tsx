@@ -1,7 +1,7 @@
 "use client";
 
-import NavigationHeader from "@/app/components/NavigationHeader";
-import BlogCard from "@/app/components/BlogCard";
+import NavigationHeader from "@/app/components/NavigationHeader/NavigationHeader";
+import BlogCard from "@/app/components/Card/BlogCard";
 import { motion, AnimatePresence } from "framer-motion";
 
 import "swiper/css";
