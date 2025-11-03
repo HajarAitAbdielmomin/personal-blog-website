@@ -4,12 +4,10 @@ export default function BlogCard(
         image,
         title,
         desc,
-        date
     }: {
         image: string,
         title: string,
         desc: string,
-        date: string
     }
 ) {
     return (
@@ -23,7 +21,6 @@ export default function BlogCard(
                 />
 
             </div>
-
 
             <div className="p-5 text-left flex-grow">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
