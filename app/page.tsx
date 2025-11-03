@@ -5,19 +5,16 @@ export default function Home() {
         {
             title: "The Crucial Role of Project Management in Construction Success.",
             desc: "This blog delves into the critical role project management plays in the construction industry.",
-            date: "4 Mar",
             image: "/java-threads2.jpg",
         },
         {
             title: "Materials for Your Next Construction Project",
             desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
-            date: "5 Mar",
             image: "/Dystonia-4.jpg",
         },
         {
             title: "What to Expect During a Construction Project",
             desc: "Embarking on a construction project can be a complex and multifaceted process.",
-            date: "6 Mar",
             image: "/logging-api.jpg",
         },
     ];
@@ -44,7 +41,6 @@ export default function Home() {
                           key={index}
                           title={blog.title}
                           desc={blog.desc}
-                          date={blog.date}
                           image={blog.image}
                       />
                   ))}
