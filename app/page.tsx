@@ -7,7 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Loader from "@/app/components/Loader/Loader";
 export default function Home() {
     const blogs = [
         {
@@ -48,6 +49,7 @@ export default function Home() {
     ];
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 3;
+    const [loading, setLoading] = useState(true);
 
     const totalPages = Math.ceil(blogs.length / cardsPerPage);
     const startIndex = (currentPage - 1) * cardsPerPage;
@@ -60,6 +62,12 @@ export default function Home() {
     const handlePrev = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 1500); // 1.5s delay
+        return () => clearTimeout(timer);
+    }, []);
+    if (loading) return <Loader />;
   return (
       <div className="w-full bg-white/70 bg-opacity-40 font-display">
           <NavigationHeader/>
@@ -95,7 +103,7 @@ export default function Home() {
                           className={`p-2 border rounded-md bg-gray-900 text-white transition ${
                               currentPage === totalPages
                                   ? "opacity-40 cursor-not-allowed"
-                                  : "hover:bg-gray-800 cursor-pointer"
+                                  : "hover:bg-gray-700 cursor-pointer"
                           }`}
                       >
                           →
