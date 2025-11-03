@@ -105,29 +105,19 @@ export default function Home() {
                   <AnimatePresence mode="wait">
                       <motion.div
                           key={currentPage}
-                          initial={{ opacity: 0, x: 25, scale: 0.98 }}
-                          animate={{ opacity: 1, x: 0, scale: 1 }}
-                          exit={{ opacity: 0, x: -25, scale: 0.98 }}
-                          transition={{ duration: 0.6, ease: "easeInOut" }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.15 }}
                           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                       >
                           {currentBlogs.map((blog, index) => (
-                              <motion.div
-                                  key={`${currentPage}-${index}`}
-                                  initial={{ opacity: 0, y: 15 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{
-                                      duration: 0.5,
-                                      ease: "easeOut",
-                                      delay: index * 0.1,
-                                  }}
-                              >
-                                  <BlogCard
-                                      title={blog.title}
-                                      desc={blog.desc}
-                                      image={blog.image}
-                                  />
-                              </motion.div>
+                              <BlogCard
+                                  key={index}
+                                  title={blog.title}
+                                  desc={blog.desc}
+                                  image={blog.image}
+                              />
                           ))}
                       </motion.div>
                   </AnimatePresence>
