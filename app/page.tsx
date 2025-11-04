@@ -9,6 +9,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import {useEffect, useState} from "react";
 import Loader from "@/app/components/Loader/Loader";
+import Form from "@/app/components/Contact/Form";
+import InfoCards from "@/app/components/Contact/InfoCards";
 export default function Home() {
     const blogs = [
         {
@@ -146,6 +148,28 @@ export default function Home() {
               </div>
 
           </div>
+
+
+          <section id="contact" className="py-20 px-6 lg:px-28 bg-white/60 items-center text-center">
+
+              <h2 className="text-6xl md:text-6xl font-bold mb-3">
+                  Get In <span className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Touch</span>
+              </h2>
+              <p className="text-gray-500 max-w-xl mx-auto mb-8">
+                  Have thoughts or feedback about my blogs?{" "} Drop me a message
+                  I’d love to hear from you.
+              </p>
+
+              <div className="container mx-auto flex flex-col lg:flex-row items-start justify-between gap-10">
+                  <div className="w-full lg:flex-1">
+                      <Form/>
+                  </div>
+
+                  <div className="w-full lg:flex-1 flex flex-col gap-5">
+                      <InfoCards/>
+                  </div>
+              </div>
+          </section>
       </div>
 
   );
