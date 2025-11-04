@@ -4,3 +4,10 @@
 
 - decide the contact design
 - make sure the texts doesn't affect on the card's length, the text must stop in a specific level.
+
+- form validation.
+- send email to the author from the form.
+server side dev :
+- implement the API that retreives all the blogs from medium.
+- host your website.
+- you should find a way to make your website public and accessible
