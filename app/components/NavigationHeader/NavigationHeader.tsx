@@ -17,7 +17,11 @@ export default function NavigationHeader() {
         </div>
 
         <div>
-            <button className="px-8 py-2 text-sm font-medium text-white bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition cursor-pointer shadow-lg">
+            <button
+                onClick={() => {
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-8 py-2 text-sm font-medium text-white bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition cursor-pointer shadow-lg">
                 Contact
             </button>
         </div>
