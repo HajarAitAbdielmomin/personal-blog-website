@@ -12,12 +12,12 @@ export default function BlogCard(
 ) {
     return (
         <div
-            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden font-sans h-[26rem] max-w-sm flex flex-col">
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden font-sans h-auto sm:h-[26rem] w-full max-w-sm mx-auto flex flex-col">
             <div className="relative">
                 <img
                     src={image}
                     alt={title}
-                    className="w-full h-40 "
+                    className="w-full h-48 sm:h-40 "
                 />
 
             </div>

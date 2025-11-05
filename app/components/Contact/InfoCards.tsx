@@ -27,12 +27,12 @@ export default function InfoCards() {
             {infos.map((info, idx) => (
                 <div
                     key={idx}
-                    className="bg-white p-5 rounded-xl shadow-md flex items-start gap-4 hover:shadow-lg transition-all duration-300"
+                    className="bg-white p-4 sm:p-5 rounded-xl shadow-md flex items-start gap-3 sm:gap-4 hover:shadow-lg transition-all duration-300"
                 >
-                    <div className="p-3 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">{info.icon}</div>
+                    <div className="p-2 sm:p-3 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex-shrink-0">{info.icon}</div>
                     <div className="text-left">
-                        <h4 className="font-semibold text-gray-800">{info.title}</h4>
-                        <p className="text-sm text-gray-500">{info.text}</p>
+                        <h4 className="font-semibold text-gray-800 text-sm sm:text-base">{info.title}</h4>
+                        <p className="text-xs sm:text-sm text-gray-500">{info.text}</p>
                         {idx === 0 ? (
                             <a 
                                 href={`mailto:${info.detail}`}

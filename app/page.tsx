@@ -155,12 +155,12 @@ export default function Home() {
           </div>
 
 
-          <section id="contact" className="py-20 px-6 lg:px-28 bg-white/60 items-center text-center">
+          <section id="contact" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-28 bg-white/60 items-center text-center">
 
-              <h2 className="text-6xl md:text-6xl font-bold mb-3">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3">
                   Get In <span className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Touch</span>
               </h2>
-              <p className="text-gray-500 max-w-xl mx-auto mb-8">
+              <p className="text-gray-500 max-w-xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base px-2">
                   Have thoughts or feedback about my blogs?{" "} Drop me a message
                   I’d love to hear from you.
               </p>
