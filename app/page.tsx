@@ -7,10 +7,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 import {useEffect, useState} from "react";
+
+
 import Loader from "@/app/components/Loader/Loader";
 import Form from "@/app/components/Contact/Form";
 import InfoCards from "@/app/components/Contact/InfoCards";
+import Footer from "@/app/components/Footer/Footer";
+
 export default function Home() {
     const blogs = [
         {
@@ -170,6 +175,8 @@ export default function Home() {
                   </div>
               </div>
           </section>
+
+          <Footer />
       </div>
 
   );
