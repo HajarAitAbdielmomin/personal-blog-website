@@ -13,6 +13,6 @@
 - send email to the author from the form.
 - implement search blog feat
 server side dev :
-- implement the API that retreives all the blogs from medium.
+- implement the API that retrieves all the blogs from medium.
 - host your website.
 - you should find a way to make your website public and accessible
