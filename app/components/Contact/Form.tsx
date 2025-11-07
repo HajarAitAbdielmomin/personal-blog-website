@@ -11,7 +11,23 @@ const validationSchema = Yup.object({
 
 export default function ContactForm() {
     const handleSubmit = async (values: any, { setSubmitting, resetForm }: any) => {
-
+        setSubmitting(true);
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+            if (data.success) {
+                //window.open(data.mailtoUrl, '_blank');
+                resetForm();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setSubmitting(false);
+        }
     };
     return (
         <Formik
