@@ -4,15 +4,21 @@
 
 - decide the contact design -done
 
-- create the footer section
+- create the footer section -done
 
 
-- make sure the texts doesn't affect on the card's length, the text must stop in a specific level.
+- make sure the texts doesn't affect on the card's length, the text must stop in a specific level. -done
 
-- form validation.
-- send email to the author from the form.
-- implement search blog feat
+- form validation. -done
+- send email to the author from the form. -done
+- add box dialogue to inform the user that the email is sent -done
+
 server side dev :
 - implement the API that retrieves all the blogs from medium.
-- host your website.
+- host your website. :: I still need to find a way to retrieve all the remained blogs and add the dates to the blog cards
+
 - you should find a way to make your website public and accessible
+
+
+- implement search blog feat: prio-last thing
+- make some more animations to the cards
