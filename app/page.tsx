@@ -17,43 +17,7 @@ import InfoCards from "@/app/components/Contact/InfoCards";
 import Footer from "@/app/components/Footer/Footer";
 
 export default function Home() {
-    const blogs = [
-        {
-            title: "Materials for Your Next Construction Project",
-            desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
-            image: "/Dystonia-4.jpg",
-        },
-        {
-            title: "What to Expect During a Construction Project",
-            desc: "Embarking on a construction project can be a complex and multifaceted process.",
-            image: "/logging-api.jpg",
-        },
-        {
-            title: "The Crucial Role of Project Management in Construction Success.",
-            desc: "This blog delves into the critical role project management plays in the construction industry.",
-            image: "/java-threads2.jpg",
-        },
-        {
-            title: "Materials for Your Next Construction Project",
-            desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
-            image: "/java-threads.webp",
-        },
-        {
-            title: "What to Expect During a Construction Project",
-            desc: "Embarking on a construction project can be a complex and multifaceted process.",
-            image: "/inject.jpg",
-        },
-        {
-            title: "Materials for Your Next Construction Project",
-            desc: "Discover the benefits of using sustainable options. Learn how these materials contribute to energy efficiency.",
-            image: "/NestedClasses.jpg",
-        },
-        {
-            title: "What to Expect During a Construction Project",
-            desc: "Embarking on a construction project can be a complex and multifaceted process.",
-            image: "/java-threads2.jpg",
-        },
-    ];
+    const [blogs, setBlogs] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 3;
     const [loading, setLoading] = useState(true);
@@ -71,9 +35,23 @@ export default function Home() {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 1500); // 1.5s delay
-        return () => clearTimeout(timer);
+        fetchBlogs()
     }, []);
+
+    const fetchBlogs = async () => {
+        try {
+            const response = await fetch('/api/blogs');
+            const data = await response.json();
+            if (data.success) {
+                setBlogs(data.blogs);
+                console.log(data.blogs);
+            }
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
     if (loading) return <Loader />;
   return (
       <div className="w-full bg-white/70 bg-opacity-40 font-display">
@@ -126,12 +104,13 @@ export default function Home() {
                           transition={{ duration: 0.15 }}
                           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                       >
-                          {currentBlogs.map((blog, index) => (
+                          {currentBlogs.map((blog: any, index) => (
                               <BlogCard
                                   key={index}
                                   title={blog.title}
                                   desc={blog.desc}
                                   image={blog.image}
+                                  link={blog.link}
                               />
                           ))}
                       </motion.div>
