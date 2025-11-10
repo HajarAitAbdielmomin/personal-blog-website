@@ -1,6 +1,7 @@
 import { Send } from "lucide-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 
 const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -12,6 +13,7 @@ const validationSchema = Yup.object({
 export default function ContactForm() {
     const handleSubmit = async (values: any, { setSubmitting, resetForm }: any) => {
         setSubmitting(true);
+        let status: number = 0;
         try {
             const response = await fetch('/api/send-email', {
                 method: 'POST',
@@ -20,14 +22,21 @@ export default function ContactForm() {
             });
             const data = await response.json();
             if (data.success) {
-                //window.open(data.mailtoUrl, '_blank');
                 resetForm();
+                status = 1
             }
         } catch (error) {
             console.error('Error:', error);
         } finally {
             setSubmitting(false);
+            await Swal.fire({
+                icon: status ? 'success' : 'error',
+                title: status ? 'Success!' : 'Error',
+                text: status ? 'Your message has been sent successfully.' : 'An issue occurred while sending your message.',
+                confirmButtonText: 'OK'
+            });
         }
+
     };
     return (
         <Formik
