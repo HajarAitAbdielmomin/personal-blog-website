@@ -4,12 +4,14 @@ export default function BlogCard(
         image,
         title,
         desc,
-        link
+        link,
+        date
     }: {
         image: string,
         title: string,
         desc: string,
-        link: string
+        link: string,
+        date: string
     }
 ) {
     const cleanDesc = desc
@@ -23,9 +25,11 @@ export default function BlogCard(
                 <img
                     src={image}
                     alt={title}
-                    className="w-full h-56 sm:h-52 object-cover"
+                    className="w-full h-40 sm:h-52 "
                 />
-
+                <div className="absolute top-2 right-2 bg-black/70 text-white text-xs font-bold px-2 py-1 rounded">
+                    {date}
+                </div>
             </div>
 
             <div className="p-5 text-left flex-grow">
