@@ -1,5 +1,11 @@
 import SearchBar from "../SearchBar/SearchBar";
-export default function NavigationHeader() {
+
+interface NavigationHeaderProps {
+    onSearch: (query: string) => void;
+    searchQuery: string;
+}
+
+export default function NavigationHeader({ onSearch, searchQuery }: NavigationHeaderProps) {
     return (
 
     <div className="relative z-50 flex items-center justify-between w-full min-h-[5rem] bg-white/70 shadow px-4 sm:px-6 lg:px-28 backdrop-blur-md">
@@ -13,7 +19,7 @@ export default function NavigationHeader() {
         </div>
 
         <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-xs sm:max-w-md md:max-w-2xl">
-            <SearchBar/>
+            <SearchBar onSearch={onSearch} searchQuery={searchQuery} />
         </div>
 
         <div>
