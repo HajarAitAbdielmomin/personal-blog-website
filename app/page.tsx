@@ -1,7 +1,5 @@
 "use client";
 
-import NavigationHeader from "@/app/components/NavigationHeader/NavigationHeader";
-import BlogCard from "@/app/components/Card/BlogCard";
 import { motion, AnimatePresence } from "framer-motion";
 
 import "swiper/css";
@@ -10,11 +8,16 @@ import "swiper/css/pagination";
 
 import {useEffect, useState} from "react";
 
+import {formatDate} from "@/app/util/util";
+import {getBlogs} from "@/app/services/blog_service/blog_service";
 
+import NavigationHeader from "@/app/components/NavigationHeader/NavigationHeader";
+import BlogCard from "@/app/components/Card/BlogCard";
 import Loader from "@/app/components/Loader/Loader";
 import Form from "@/app/components/Contact/Form";
 import InfoCards from "@/app/components/Contact/InfoCards";
 import Footer from "@/app/components/Footer/Footer";
+
 
 export default function Home() {
     const [blogs, setBlogs] = useState([]);
@@ -34,25 +37,21 @@ export default function Home() {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
 
+    if (loading) return <Loader />;
     useEffect(() => {
-        fetchBlogs()
+        (async () => {
+            try {
+                const data = await getBlogs();
+                setBlogs(data);
+            } catch (error) {
+                console.error('Error fetching blogs:', error);
+            } finally {
+                setLoading(false);
+            }
+        })();
     }, []);
 
-    const fetchBlogs = async () => {
-        try {
-            const response = await fetch('/api/blogs');
-            const data = await response.json();
-            if (data.success) {
-                setBlogs(data.blogs);
-                console.log(data.blogs);
-            }
-        } catch (error) {
-            console.error('Error fetching blogs:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    if (loading) return <Loader />;
+
   return (
       <div className="w-full bg-white/70 bg-opacity-40 font-display">
           <NavigationHeader/>
@@ -110,6 +109,7 @@ export default function Home() {
                                   title={blog.title}
                                   desc={blog.desc}
                                   image={blog.image}
+                                  date={formatDate(blog.pubDate)}
                                   link={blog.link}
                               />
                           ))}
