@@ -20,14 +20,20 @@ import Footer from "@/app/components/Footer/Footer";
 
 
 export default function Home() {
-    const [blogs, setBlogs] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const cardsPerPage = 3;
+
     const [loading, setLoading] = useState(true);
 
-    const totalPages = Math.ceil(blogs.length / cardsPerPage);
+    const [blogs, setBlogs] = useState([]);
+
+    const [filteredBlogs, setFilteredBlogs] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const cardsPerPage = 3;
+
+    const totalPages = Math.ceil(filteredBlogs.length / cardsPerPage);
     const startIndex = (currentPage - 1) * cardsPerPage;
-    const currentBlogs = blogs.slice(startIndex, startIndex + cardsPerPage);
+
 
     const handleNext = () => {
         if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -37,12 +43,42 @@ export default function Home() {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
 
-    if (loading) return <Loader />;
+    const currentBlogs = filteredBlogs.slice(startIndex, startIndex + cardsPerPage);
+
+    const handleSearch = (query: string) => {
+
+        // Update state and reset to page 1
+        setSearchQuery(query);
+        setCurrentPage(1);
+
+        // Handle empty search
+        if (!query.trim()) {
+            setFilteredBlogs(blogs);
+            return;
+        }
+
+        const filtered = blogs.filter((blog: any) => {
+            const searchTerm = query.toLowerCase();
+
+            const title = blog.title.toLowerCase();
+            const desc = blog.desc.toLowerCase();
+            const date = formatDate(blog.pubDate).toLowerCase();
+            
+            return title.includes(searchTerm) || 
+                   desc.includes(searchTerm) || 
+                   date.includes(searchTerm);
+        });
+        
+        setFilteredBlogs(filtered);
+    };
+
+
     useEffect(() => {
         (async () => {
             try {
                 const data = await getBlogs();
                 setBlogs(data);
+                setFilteredBlogs(data);
             } catch (error) {
                 console.error('Error fetching blogs:', error);
             } finally {
@@ -50,11 +86,11 @@ export default function Home() {
             }
         })();
     }, []);
-
+    if (loading) return <Loader />;
 
   return (
       <div className="w-full bg-white/70 bg-opacity-40 font-display">
-          <NavigationHeader/>
+          <NavigationHeader onSearch={handleSearch} searchQuery={searchQuery} />
 
           <div
               className="h-full min-h-screen w-full container mx-auto py-10 px-6 flex flex-col items-center text-center gap-6">
@@ -68,68 +104,86 @@ export default function Home() {
                   Each post is written with care to inspire curiosity and spark thoughtful discussions.
               </p>
 
+
+
               <div className="w-full max-w-6xl">
-                  <div className="flex justify-end gap-3 mb-6">
-                      <button
-                          onClick={handlePrev}
-                          disabled={currentPage === 1}
-                          className={`p-2 border rounded-md transition ${
-                              currentPage === 1
-                                  ? "opacity-40 cursor-not-allowed"
-                                  : "hover:bg-gray-100 cursor-pointer"
-                          }`}
-                      >
-                          ←
-                      </button>
-                      <button
-                          onClick={handleNext}
-                          disabled={currentPage === totalPages}
-                          className={`p-2 border rounded-md bg-gray-900 text-white transition ${
-                              currentPage === totalPages
-                                  ? "opacity-40 cursor-not-allowed"
-                                  : "hover:bg-gray-700 cursor-pointer"
-                          }`}
-                      >
-                          →
-                      </button>
+                  {searchQuery && (
+                      <div className="mb-4 text-sm text-gray-600">
+                          {filteredBlogs.length} result{filteredBlogs.length !== 1 ? 's' : ''} found for "{searchQuery}"
+                      </div>
+                  )}
+                  
+                  {filteredBlogs.length > 0 && (
+                      <div className="flex justify-end gap-3 mb-6">
+                          <button
+                              onClick={handlePrev}
+                              disabled={currentPage === 1}
+                              className={`p-2 border rounded-md transition ${
+                                  currentPage === 1
+                                      ? "opacity-40 cursor-not-allowed"
+                                      : "hover:bg-gray-100 cursor-pointer"
+                              }`}
+                          >
+                              ←
+                          </button>
+                          <button
+                              onClick={handleNext}
+                              disabled={currentPage === totalPages}
+                              className={`p-2 border rounded-md bg-gray-900 text-white transition ${
+                                  currentPage === totalPages
+                                      ? "opacity-40 cursor-not-allowed"
+                                      : "hover:bg-gray-700 cursor-pointer"
+                              }`}
+                          >
+                              →
+                          </button>
+                      </div>
+                  )}
+
+                  {filteredBlogs.length === 0 ? (
+                      <div className="text-center py-12">
+                          <p className="text-gray-500 text-lg">No blogs found matching your search.</p>
+                      </div>
+                  ) : (
+                      <AnimatePresence mode="wait">
+                          <motion.div
+                              key={currentPage}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.15 }}
+                              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                          >
+                              {currentBlogs.map((blog: any, index) => (
+                                  <BlogCard
+                                      key={index}
+                                      title={blog.title}
+                                      desc={blog.desc}
+                                      image={blog.image}
+                                      date={formatDate(blog.pubDate)}
+                                      link={blog.link}
+                                  />
+                              ))}
+                          </motion.div>
+                      </AnimatePresence>
+                  )}
+
+              </div>
+
+
+              {filteredBlogs.length > 0 && totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 mt-10">
+                      {Array.from({length: totalPages}, (_, i) => (
+                          <button
+                              key={i}
+                              onClick={() => setCurrentPage(i + 1)}
+                              className={`w-2.5 h-2.5 rounded-full ${
+                                  currentPage === i + 1 ? "bg-gray-800" : "bg-gray-300"
+                              }`}
+                          ></button>
+                      ))}
                   </div>
-
-                  <AnimatePresence mode="wait">
-                      <motion.div
-                          key={currentPage}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.15 }}
-                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-                      >
-                          {currentBlogs.map((blog: any, index) => (
-                              <BlogCard
-                                  key={index}
-                                  title={blog.title}
-                                  desc={blog.desc}
-                                  image={blog.image}
-                                  date={formatDate(blog.pubDate)}
-                                  link={blog.link}
-                              />
-                          ))}
-                      </motion.div>
-                  </AnimatePresence>
-
-              </div>
-
-
-              <div className="flex items-center justify-center gap-2 mt-10">
-                  {Array.from({length: totalPages}, (_, i) => (
-                      <button
-                          key={i}
-                          onClick={() => setCurrentPage(i + 1)}
-                          className={`w-2.5 h-2.5 rounded-full ${
-                              currentPage === i + 1 ? "bg-gray-800" : "bg-gray-300"
-                          }`}
-                      ></button>
-                  ))}
-              </div>
+              )}
 
           </div>
 
