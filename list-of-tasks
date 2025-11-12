@@ -13,12 +13,13 @@
 - send email to the author from the form. -done
 - add box dialogue to inform the user that the email is sent -done
 
+- implement search blog feat: prio-last thing -done
+- make some more animations to the cards -done
+- change the tab logo/title -done
+
 server side dev :
-- implement the API that retrieves all the blogs from medium.
-- host your website. :: I still need to find a way to retrieve all the remained blogs and add the dates to the blog cards
+- implement the API that retrieves all the blogs from medium.  :: I still need to find a way to retrieve all
+the remained blogs and add the dates to the blog cards
+- host your website.
 
-- you should find a way to make your website public and accessible
 
-
-- implement search blog feat: prio-last thing
-- make some more animations to the cards
