@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Hajar's Writings | Tech, Creativity & Life",
   description: "Explore insights, reflections, and stories blending technology, creativity, and life. Each post is written with care to inspire curiosity and spark thoughtful discussions.",
+  icons: {
+    icon: '/tab-logo.png',
+  },
 };
 
 export default function RootLayout({
