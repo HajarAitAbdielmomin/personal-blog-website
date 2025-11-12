@@ -20,14 +20,14 @@ export default function BlogCard(
 
     return (
         <div
-            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden font-sans h-auto sm:h-[26rem] w-full max-w-sm mx-auto flex flex-col">
+            className="bg-white rounded-xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden font-sans h-auto sm:h-[26rem] w-full max-w-sm mx-auto flex flex-col group">
             <div className="relative">
                 <img
                     src={image}
                     alt={title}
-                    className="w-full h-40 sm:h-52 "
+                    className="w-full h-40 sm:h-52  "
                 />
-                <div className="absolute top-2 right-2 bg-black/70 text-white text-xs font-bold px-2 py-1 rounded">
+                <div className="absolute top-2 right-2 bg-black/70 text-white text-xs font-bold px-2 py-1 rounded transition-all duration-300 group-hover:bg-black/90">
                     {date}
                 </div>
             </div>
@@ -38,7 +38,7 @@ export default function BlogCard(
             </div>
 
             <div className="px-5 pb-5 mt-auto text-left">
-                <a href={link} className="text-blue-600 font-medium hover:underline" target="_blank" rel="noopener noreferrer">
+                <a href={link} className="text-blue-600 font-medium hover:underline transition-colors duration-300 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
                     Read more →
                 </a>
             </div>
